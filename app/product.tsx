@@ -8,15 +8,7 @@ export default function ProductPage() {
     <main className="bg-gray-50 text-gray-900 min-h-screen">
       <Navbar />
       <HeroBanner />
-      {/* Full product list instead of featured */}
-      <ProductGrid showAll />
-      <Footer />
-    </main>
-  );
-}
-        </div>
-      </section>
-
+      <ProductGrid />
       <Footer />
     </main>
   );

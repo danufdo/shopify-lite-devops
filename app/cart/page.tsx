@@ -1,13 +1,12 @@
 import Navbar from "../../components/Navbar";
-import ProductGrid from "../../components/ProductGrid";
 import Footer from "../../components/Footer";
-import HeroBanner from "@/components/HeroBanner";
+import CartGrid from "../../components/CartGrid";
 
-export default function ProductPage() {
+export default function CartPage() {
   return (
     <main className="bg-gray-50 text-gray-900 min-h-screen">
       <Navbar />
-      <ProductGrid />
+      <CartGrid />
       <Footer />
     </main>
   );
