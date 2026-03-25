@@ -1,25 +1,42 @@
 "use client";
-import { useCart } from "Context/CartContext";
+import { useEffect, useState } from "react";
+import { getCart, removeFromCart } from "../services/api";
 
 export default function CartGrid() {
-  const { cart } = useCart();
+  const [cart, setCart] = useState<any[]>([]);
+
+  useEffect(() => {
+    loadCart();
+  }, []);
+
+  const loadCart = async () => {
+    const data = await getCart();
+    setCart(data);
+  };
+
+  const handleRemove = async (id: number) => {
+    await removeFromCart(id);
+    loadCart();
+  };
 
   return (
-    <div className="px-8 py-12 bg-gray-50 text-gray-900">
+    <div className="px-8 py-12">
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
 
       {cart.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {cart.map((item: any, index: number) => (
-            <div key={index} className="bg-white p-4 rounded-xl shadow">
-              <img
-                src={item.image}
-                className="w-full h-40 object-cover mb-3"
-              />
-              <h3 className="font-semibold">{item.name}</h3>
-              <p className="text-gray-700">${item.price}</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {cart.map((item) => (
+            <div key={item.id} className="bg-white p-4 rounded shadow">
+              <h3>{item.productId}</h3>
+              <p>Qty: {item.quantity}</p>
+              <button
+                onClick={() => handleRemove(item.id)}
+                className="bg-red-500 text-white px-4 py-2 mt-2 rounded"
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>
